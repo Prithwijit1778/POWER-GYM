@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Power Gym — Ultra Modern Fitness</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1115;
+      --card:#0f1720;
+      --accent:#ff4d4f;
+      --muted:#9aa4b2;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --radius:14px;
+      --max-width:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#071018 0%, #0f1115 60%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    .container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:28px;
+    }
+
+    /* Header / Nav */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:12px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#0ff 0%, #00b3ff 40%, #ff4d4f 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 6px 20px rgba(0,0,0,0.6), inset 0 -6px 18px rgba(255,255,255,0.06);
+      overflow:hidden;
+    }
+    .logo img{width:70%; height:70%; object-fit:contain; filter:brightness(1.05) contrast(1.05)}
+    .brand h1{
+      font-family:Montserrat, sans-serif;
+      font-weight:800;
+      font-size:18px;
+      margin:0;
+      letter-spacing:0.6px;
+    }
+    nav{display:flex; gap:18px; align-items:center}
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+      padding:8px 12px;
+      border-radius:10px;
+    }
+    nav a.cta{
+      background:linear-gradient(90deg,var(--accent),#ff7a5a);
+      color:white;
+      box-shadow:0 8px 30px rgba(255,77,79,0.12);
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 520px;
+      gap:28px;
+      align-items:center;
+      margin-top:18px;
+    }
+    .hero-left{
+      padding:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:var(--radius);
+      box-shadow:0 10px 40px rgba(2,6,23,0.6);
+      overflow:hidden;
+    }
+    .eyebrow{
+      color:var(--accent);
+      font-weight:700;
+      font-family:Montserrat, sans-serif;
+      letter-spacing:1px;
+      font-size:13px;
+      margin-bottom:12px;
+    }
+    .hero-title{
+      font-family:Montserrat, sans-serif;
+      font-size:40px;
+      margin:0 0 12px 0;
+      line-height:1.02;
+      color:#fff;
+    }
+    .hero-sub{
+      color:var(--muted);
+      margin-bottom:18px;
+      font-size:16px;
+    }
+    .hero-cta{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .btn{
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      border:0;
+      font-size:14px;
+    }
+    .btn-primary{
+      background:linear-gradient(90deg,var(--accent),#ff7a5a);
+      color:white;
+      box-shadow:0 10px 30px rgba(255,77,79,0.12);
+    }
+    .btn-ghost{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    /* Hero right card */
+    .hero-right{
+      border-radius:var(--radius);
+      overflow:hidden;
+      position:relative;
+      min-height:360px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow:0 12px 40px rgba(2,6,23,0.6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-right img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* Services grid */
+    .services{
+      margin-top:28px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .service-card{
+      background:var(--card);
+      border-radius:12px;
+      padding:16px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      min-height:110px;
+      box-shadow:0 8px 30px rgba(2,6,23,0.5);
+    }
+    .service-card img{
+      width:92px;
+      height:72px;
+      object-fit:cover;
+      border-radius:10px;
+      flex-shrink:0;
+    }
+    .service-card h4{margin:0 0 6px 0; font-size:16px}
+    .service-card p{margin:0; color:var(--muted); font-size:13px}
+
+    /* Trainers */
+    .trainers{
+      margin-top:36px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+    .trainer{
+      background:linear-gradient(180deg,var(--glass),var(--glass-2));
+      border-radius:12px;
+      padding:14px;
+      text-align:center;
+      box-shadow:0 8px 30px rgba(2,6,23,0.45);
+    }
+    .trainer img{
+      width:100%;
+      height:160px;
+      object-fit:cover;
+      border-radius:10px;
+      margin-bottom:12px;
+    }
+    .trainer h5{margin:0; font-family:Montserrat, sans-serif; font-size:16px}
+    .trainer small{display:block; color:var(--muted); margin-top:6px; font-size:13px}
+    .trainer .tags{margin-top:10px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
+    .tag{background:rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; font-size:12px; color:var(--muted)}
+
+    /* Subscriptions */
+    .subscriptions{
+      margin-top:36px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .sub-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:12px;
+      padding:18px;
+      text-align:center;
+      box-shadow:0 10px 40px rgba(2,6,23,0.5);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .sub-card h3{margin:0 0 8px 0; font-family:Montserrat, sans-serif}
+    .price{font-size:22px; font-weight:800; color:#fff; margin:8px 0}
+    .features{color:var(--muted); font-size:13px; margin-bottom:12px}
+    .sub-card .select{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:10px;
+      background:linear-gradient(90deg,var(--accent),#ff7a5a);
+      color:white;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    /* Contact */
+    .contact{
+      margin-top:36px;
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:18px;
+    }
+    .contact-form{
+      background:var(--card);
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 10px 40px rgba(2,6,23,0.5);
+    }
+    .contact-form label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px}
+    .contact-form input, .contact-form textarea, .contact-form select{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:transparent;
+      color:#e6eef6;
+      margin-bottom:12px;
+      font-size:14px;
+    }
+    .contact-info{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 10px 40px rgba(2,6,23,0.5);
+    }
+    .contact-info h4{margin-top:0}
+    .muted{color:var(--muted)}
+
+    /* Footer */
+    footer{
+      margin-top:36px;
+      padding:18px 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr}
+      .services{grid-template-columns:repeat(2,1fr)}
+      .trainers{grid-template-columns:repeat(2,1fr)}
+      .subscriptions{grid-template-columns:repeat(2,1fr)}
+      .contact{grid-template-columns:1fr}
+    }
+    @media (max-width:640px){
+      .services{grid-template-columns:1fr}
+      .trainers{grid-template-columns:1fr}
+      .subscriptions{grid-template-columns:1fr}
+      .brand h1{font-size:16px}
+      .hero-title{font-size:28px}
+    }
+
+    /* Entrance animations: left→right and top→down sequencing */
+    .animate {
+      opacity:0;
+      transform:translateY(18px);
+      animation:fadeUp 0.9s cubic-bezier(.2,.9,.2,1) forwards;
+    }
+    .animate-left {
+      opacity:0;
+      transform:translateX(-28px);
+      animation:slideRight 0.9s cubic-bezier(.2,.9,.2,1) forwards;
+    }
+    .animate-delay-1{animation-delay:0.12s}
+    .animate-delay-2{animation-delay:0.24s}
+    .animate-delay-3{animation-delay:0.36s}
+    .animate-delay-4{animation-delay:0.48s}
+    .animate-delay-5{animation-delay:0.62s}
+    .animate-delay-6{animation-delay:0.78s}
+
+    @keyframes fadeUp{
+      to{opacity:1; transform:translateY(0)}
+    }
+    @keyframes slideRight{
+      to{opacity:1; transform:translateX(0)}
+    }
+
+    /* subtle hover effects */
+    .service-card:hover, .trainer:hover, .sub-card:hover{transform:translateY(-6px); transition:transform .28s ease}
+    .service-card, .trainer, .sub-card{transition:transform .28s ease, box-shadow .28s ease}
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0; background:rgba(2,6,23,0.6); display:none; align-items:center; justify-content:center; z-index:1200;
+    }
+    .modal{
+      width:min(720px,92%);
+      background:linear-gradient(180deg,#071018,#0b0f14);
+      border-radius:14px;
+      padding:20px;
+      box-shadow:0 30px 80px rgba(2,6,23,0.8);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .modal h3{margin-top:0}
+    .close-btn{background:transparent; border:0; color:var(--muted); font-weight:700; cursor:pointer; font-size:16px}
+
+    /* small utilities */
+    .flex{display:flex; gap:12px; align-items:center}
+    .space-between{display:flex; justify-content:space-between; align-items:center}
+    .muted-2{color:#9aa4b2}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="animate-left animate-delay-1">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <img src="images/logo.png" alt="Power Gym logo">
+        </div>
+        <div>
+          <h1>Power Gym</h1>
+          <div class="muted" style="font-size:12px">Strength • Speed • Stamina</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#trainers">Trainers</a>
+        <a href="#plans">Plans</a>
+        <a href="#contact" class="cta">Join Now</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-left animate animate-delay-2" role="region" aria-label="Intro">
+        <div class="eyebrow">NEW — Grand Opening Offers</div>
+        <h2 class="hero-title">Power up your body. Transform your life.</h2>
+        <p class="hero-sub">State-of-the-art equipment, expert trainers, and tailored programs for every level. Experience an ultra-modern gym designed for results.</p>
+
+        <div class="hero-cta">
+          <button class="btn btn-primary" id="startTrial">Start Free Trial</button>
+          <button class="btn btn-ghost" id="viewPlans">View Plans</button>
+        </div>
+
+        <div style="margin-top:18px; display:flex; gap:12px; align-items:center;">
+          <div style="background:rgba(255,255,255,0.02); padding:10px 12px; border-radius:10px;">
+            <strong>Open</strong><div class="muted" style="font-size:12px">6:00 AM — 11:00 PM</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.02); padding:10px 12px; border-radius:10px;">
+            <strong>Location</strong><div class="muted" style="font-size:12px">Downtown Studio</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right animate-left animate-delay-3" aria-hidden="true">
+        <img src="images/hero.png" alt="Modern gym interior">
+      </div>
+    </section>
+
+    <hr style="border:none; height:1px; background:rgba(255,255,255,0.03); margin:28px 0">
+
+    <!-- Services -->
+    <section id="services">
+      <div class="space-between">
+        <h3 style="margin:0" class="animate animate-delay-4">Our Services</h3>
+        <div class="muted">Premium equipment, classes, and recovery</div>
+      </div>
+
+      <div class="services">
+        <div class="service-card animate animate-delay-5">
+          <img src="images/service-strength.png" alt="Kettlebells and dumbbells" loading="lazy">
+          <div>
+            <h4>Strength Training</h4>
+            <p>Free weights, racks, functional rigs, and guided programs for hypertrophy and power.</p>
+          </div>
+        </div>
+
+        <div class="service-card animate animate-delay-6">
+          <img src="images/service-cardio.png" alt="Treadmill cardio" loading="lazy">
+          <div>
+            <h4>Cardio & Endurance</h4>
+            <p>High-end treadmills, bikes, and HIIT zones to push your limits and boost stamina.</p>
+          </div>
+        </div>
+
+        <div class="service-card animate animate-delay-1">
+          <img src="images/service-functional.png" alt="Functional training" loading="lazy">
+          <div>
+            <h4>Functional Training</h4>
+            <p>TRX, kettlebells, sleds, and mobility areas for real-world strength and movement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr style="border:none; height:1px; background:rgba(255,255,255,0.03); margin:28px 0">
+
+    <!-- Trainers -->
+    <section id="trainers">
+      <div class="space-between">
+        <h3 class="animate animate-delay-2">Meet Our Trainers</h3>
+        <div class="muted">Certified, experienced, and results-driven</div>
+      </div>
+
+      <div class="trainers">
+        <div class="trainer animate animate-delay-3" aria-label="Trainer 1">
+          <img src="images/trainer1.png" alt="Trainer Arjun Das">
+          <h5>Arjun Das</h5>
+          <small class="muted">Head Strength Coach</small>
+          <div class="tags">
+            <span class="tag">Powerlifting</span>
+            <span class="tag">Nutrition</span>
+          </div>
+        </div>
+
+        <div class="trainer animate animate-delay-4" aria-label="Trainer 2">
+         <img src="images/trainer2.png" alt="Trainer Priya Sen">
+          <h5>Priya Sen</h5>
+          <small class="muted">Functional & Mobility</small>
+          <div class="tags">
+            <span class="tag">Mobility</span>
+            <span class="tag">Rehab</span>
+          </div>
+        </div>
+
+        <div class="trainer animate animate-delay-5" aria-label="Trainer 3">
+          <img src="images/trainer3.png" alt="Trainer Rohit Mehra" loading="lazy">
+          <h5>Rohit Mehra</h5>
+          <small class="muted">Cardio Specialist</small>
+          <div class="tags">
+            <span class="tag">HIIT</span>
+            <span class="tag">Endurance</span>
+          </div>
+        </div>
+
+        <div class="trainer animate animate-delay-6" aria-label="Trainer 4">
+          <img src="images/trainer4.png" alt="Trainer Simran Kaur" loading="lazy">
+          <h5>Simran Kaur</h5>
+          <small class="muted">Personal Training</small>
+          <div class="tags">
+            <span class="tag">Weight Loss</span>
+            <span class="tag">Strength</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr style="border:none; height:1px; background:rgba(255,255,255,0.03); margin:28px 0">
+
+    <!-- Subscriptions / Plans -->
+    <section id="plans">
+      <div class="space-between">
+        <h3 class="animate animate-delay-1">Membership Plans</h3>
+        <div class="muted">Flexible subscriptions with perks and add-ons</div>
+      </div>
+
+      <div class="subscriptions">
+        <div class="sub-card animate animate-delay-2" data-plan="starter">
+          <h3>Starter</h3>
+          <div class="price">₹999 / month</div>
+          <div class="features">Access to gym floor; 5 group classes; locker</div>
+          <div class="select" data-plan="Starter">Select</div>
+        </div>
+
+        <div class="sub-card animate animate-delay-3" data-plan="pro">
+          <h3>Pro</h3>
+          <div class="price">₹1,799 / month</div>
+          <div class="features">All Starter + unlimited classes; 1 PT session/month</div>
+          <div class="select" data-plan="Pro">Select</div>
+        </div>
+
+        <div class="sub-card animate animate-delay-4" data-plan="elite">
+          <h3>Elite</h3>
+          <div class="price">₹3,499 / month</div>
+          <div class="features">All Pro + 4 PT sessions; recovery lounge; priority booking</div>
+          <div class="select" data-plan="Elite">Select</div>
+        </div>
+      </div>
+    </section>
+
+    <hr style="border:none; height:1px; background:rgba(255,255,255,0.03); margin:28px 0">
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <div class="contact-form animate animate-delay-2" aria-label="Contact form">
+        <h3>Contact Power Gym</h3>
+        <p class="muted">Fill the form and our team will reach out to schedule your free trial or answer questions.</p>
+
+        <form id="contactForm" onsubmit="return handleContact(event)">
+          <label for="name">Full name</label>
+          <input id="name" name="name" required placeholder="Your name">
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com">
+
+          <label for="interest">I'm interested in</label>
+          <select id="interest" name="interest">
+            <option>Free trial</option>
+            <option>Personal training</option>
+            <option>Group classes</option>
+            <option>Membership plans</option>
+          </select>
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us your goals"></textarea>
+
+          <div style="display:flex; gap:12px; margin-top:8px;">
+            <button class="btn btn-primary" type="submit">Send Message</button>
+            <button class="btn btn-ghost" type="button" onclick="openModal('trial')">Book Free Trial</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="contact-info animate animate-delay-3" aria-label="Contact details">
+        <h4>Visit Us</h4>
+        <p class="muted">Power Gym, Downtown Studio<br>Open daily 6:00 AM — 11:00 PM</p>
+
+        <h4 style="margin-top:18px">What we offer</h4>
+        <ul class="muted" style="padding-left:18px; margin-top:8px">
+          <li>Strength & conditioning</li>
+          <li>HIIT & cardio studios</li>
+          <li>Recovery lounge & nutrition bar</li>
+          <li>Personalized coaching</li>
+        </ul>
+
+        <div style="margin-top:18px">
+          <img src="images/product.png" alt="Protein shaker or recovery lounge" style="width:100%; border-radius:10px; object-fit:cover" loading="lazy">
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <div class="muted">© <strong>Power Gym</strong> — Built for performance. All images are illustrative.</div>
+    </footer>
+  </div>
+
+  <!-- Modal (subscription / trial) -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <div class="space-between">
+        <h3 id="modalTitle">Subscribe</h3>
+        <button class="close-btn" onclick="closeModal()">✕</button>
+      </div>
+
+      <div id="modalBody" style="margin-top:12px">
+        <p class="muted">Choose your plan and complete a quick checkout. (This demo does not process payments.)</p>
+
+        <div style="margin-top:12px">
+          <label style="font-size:13px; color:var(--muted)">Selected plan</label>
+          <div id="selectedPlan" style="font-weight:800; font-size:18px; margin-top:6px">—</div>
+
+          <label style="font-size:13px; color:var(--muted); margin-top:12px; display:block">Email</label>
+          <input id="checkoutEmail" placeholder="you@example.com" style="width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:#e6eef6">
+
+          <div style="display:flex; gap:10px; margin-top:12px;">
+            <button class="btn btn-primary" onclick="completeCheckout()">Complete</button>
+            <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Entrance animation trigger on load
+    document.addEventListener('DOMContentLoaded', function(){
+      document.body.classList.add('ready');
+    });
+
+    // Subscription selection and modal logic
+    const selects = document.querySelectorAll('.select');
+    selects.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const plan = btn.getAttribute('data-plan') || btn.dataset.plan;
+        openModal(plan);
+      });
+    });
+
+    function openModal(plan){
+      const backdrop = document.getElementById('modalBackdrop');
+      const title = document.getElementById('modalTitle');
+      const selected = document.getElementById('selectedPlan');
+      backdrop.style.display = 'flex';
+      backdrop.setAttribute('aria-hidden','false');
+
+      if(plan === 'trial'){
+        title.textContent = 'Book Free Trial';
+        selected.textContent = 'Free Trial';
+      } else {
+        title.textContent = 'Subscribe to ' + (plan || 'Plan');
+        selected.textContent = plan || 'Plan';
+      }
+      document.getElementById('checkoutEmail').focus();
+    }
+
+    function closeModal(){
+      const backdrop = document.getElementById('modalBackdrop');
+      backdrop.style.display = 'none';
+      backdrop.setAttribute('aria-hidden','true');
+    }
+
+    function completeCheckout(){
+      const email = document.getElementById('checkoutEmail').value || 'your email';
+      alert('Thanks — we received your request for ' + document.getElementById('selectedPlan').textContent + '. We will contact ' + email + ' shortly.');
+      closeModal();
+    }
+
+    // Contact form handler (demo)
+    function handleContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const interest = document.getElementById('interest').value;
+      alert('Thanks ' + name + '! We received your message about "' + interest + '". We will reply to ' + email + ' soon.');
+      e.target.reset();
+      return false;
+    }
+
+    // Buttons in hero
+    document.getElementById('startTrial').addEventListener('click', () => openModal('trial'));
+    document.getElementById('viewPlans').addEventListener('click', () => {
+      document.getElementById('plans').scrollIntoView({behavior:'smooth'});
+    });
+
+    // Accessibility: close modal on Escape
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
