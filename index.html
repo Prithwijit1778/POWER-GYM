@@ -1,0 +1,2137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Power Gym - Ultra Modern Fitness</title>
+  <meta name="description" content="Power Gym is an ultra modern fitness studio with strength training, cardio, functional workouts, trainers, memberships, and free trials.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  
+  <!-- Premium Smooth Scrolling Library (Lenis) -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #101110;
+      --surface-2: #171917;
+      --surface-3: #20221f;
+      --text: #fbfbf5;
+      --muted: #a6a69f;
+      --soft: #deded3;
+      --line: rgba(255, 255, 255, 0.14);
+      --line-strong: rgba(255, 255, 255, 0.34);
+      --lime: #b8ff3d;
+      --lime-soft: #e8ff74;
+      --cyan: #50e8ff;
+      --pink: #ff2f64;
+      --amber: #ffb22e;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+      --max: 1220px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Premium Scroll Core CSS (Lenis Setup) */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-smooth iframe {
+      pointer-events: none;
+    }
+
+    html {
+      scroll-behavior: auto; /* Prevent native smooth scroll jumping */
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 72px 72px,
+        radial-gradient(circle at 18% 0%, rgba(184,255,61,.16), transparent 30%),
+        radial-gradient(circle at 85% 18%, rgba(80,232,255,.10), transparent 26%),
+        linear-gradient(180deg, #050505, #10110f 48%, #050505);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body.menu-open,
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    ::selection {
+      background: var(--lime);
+      color: #050505;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    .progress-line {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 2000;
+      height: 5px;
+      background: linear-gradient(90deg, var(--lime), var(--cyan), var(--amber), var(--pink));
+      transform: scaleX(var(--scroll-progress, 0));
+      transform-origin: left;
+      /* removed transition to allow sub-pixel smooth updates from JS */
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 82px;
+      border-bottom: 1px solid rgba(184, 255, 61, .18);
+      background: linear-gradient(180deg, rgba(8,8,8,.96), rgba(8,8,8,.9));
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.36);
+    }
+
+    .nav {
+      width: min(1360px, calc(100% - 40px));
+      min-height: 82px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 250px 1fr auto;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 60px;
+      height: 60px;
+      padding: 5px;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      object-fit: contain;
+      background:
+        linear-gradient(#0b0b0b, #0b0b0b) padding-box,
+        linear-gradient(135deg, var(--lime), var(--cyan), var(--pink)) border-box;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.12),
+        0 16px 38px rgba(184,255,61,.22);
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .brand-text span {
+      color: var(--lime);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: color .2s var(--ease), background .2s var(--ease);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      background: rgba(184,255,61,.08);
+      outline: none;
+    }
+
+    .nav-links i,
+    .btn i,
+    .icon-btn i,
+    .metric i,
+    .contact-line i {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn,
+    .icon-btn {
+      border: 0;
+      cursor: pointer;
+      transition: transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease), color .2s var(--ease), box-shadow .2s var(--ease);
+    }
+
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 20px;
+      border: 1px solid var(--line-strong);
+      border-radius: 0;
+      background: transparent;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .btn:hover,
+    .btn:focus-visible,
+    .icon-btn:hover,
+    .icon-btn:focus-visible {
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .btn-primary {
+      border-color: var(--lime);
+      background: linear-gradient(135deg, var(--lime), var(--lime-soft));
+      color: #050505;
+      box-shadow: 0 18px 46px rgba(184,255,61,.22);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      box-shadow: 0 22px 62px rgba(184,255,61,.34);
+    }
+
+    .btn-dark {
+      background: linear-gradient(180deg, #171717, #0d0d0d);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover,
+    .btn-ghost:focus-visible,
+    .btn-dark:hover,
+    .btn-dark:focus-visible {
+      border-color: var(--lime);
+      background: rgba(184,255,61,.08);
+      color: var(--lime);
+    }
+
+    .icon-btn {
+      width: 48px;
+      height: 48px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--text);
+      border-radius: 0;
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    .hero {
+      min-height: 750px;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.96), rgba(5,5,5,.72) 38%, rgba(5,5,5,.2) 68%, rgba(5,5,5,.76)),
+        linear-gradient(0deg, rgba(5,5,5,1), rgba(5,5,5,0) 34%),
+        linear-gradient(135deg, rgba(184,255,61,.18), transparent 34%, rgba(80,232,255,.14)),
+        url("images/hero.webp") center / cover no-repeat;
+    }
+
+    .hero::before {
+      content: "X";
+      position: absolute;
+      left: 30%;
+      bottom: 18px;
+      z-index: -1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(184,255,61,.22);
+      font-size: clamp(180px, 28vw, 390px);
+      font-weight: 900;
+      line-height: .72;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--lime), var(--cyan), transparent);
+      opacity: .72;
+    }
+
+    .hero-inner {
+      min-height: 750px;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 64px 0 64px;
+    }
+
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) minmax(260px, 430px);
+      align-items: start;
+      gap: 42px;
+    }
+
+    .watch-btn {
+      width: fit-content;
+      display: inline-grid;
+      grid-template-columns: 60px 1fr;
+      align-items: center;
+      gap: 20px;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .play-ring {
+      width: 60px;
+      height: 60px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 50%;
+      background: rgba(0,0,0,.28);
+      box-shadow: inset 0 0 22px rgba(255,255,255,.08), 0 18px 46px rgba(0,0,0,.36);
+      transition: border-color .2s var(--ease), color .2s var(--ease), box-shadow .2s var(--ease);
+    }
+
+    .watch-btn:hover .play-ring,
+    .watch-btn:focus-visible .play-ring {
+      border-color: var(--lime);
+      color: var(--lime);
+      box-shadow: 0 0 34px rgba(184,255,61,.2);
+    }
+
+    .watch-copy {
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .hero-note {
+      max-width: 430px;
+      justify-self: end;
+      margin: 12px 0 0;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.65;
+      text-align: right;
+      text-shadow: 0 10px 30px rgba(0,0,0,.78);
+    }
+
+    .hero-bottom {
+      display: grid;
+      grid-template-columns: 1fr minmax(300px, 370px);
+      align-items: end;
+      gap: 28px;
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--lime);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(62px, 9vw, 122px);
+      line-height: .88;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-shadow: 0 26px 70px rgba(0,0,0,.78);
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-title .outline {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(251,251,245,.8);
+      text-shadow: none;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-card {
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.025)),
+        rgba(13,13,13,.76);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .metric {
+      min-height: 94px;
+      display: grid;
+      align-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.025));
+    }
+
+    .metric i {
+      color: var(--lime);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .scroll-down-container {
+      position: absolute;
+      top: 48%; 
+      left: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      z-index: 10;
+      transition: color .3s var(--ease);
+      user-select: none;
+      animation: bouncy-scroll 2.5s infinite ease-in-out;
+    }
+
+    .scroll-down-container:hover {
+      color: var(--lime);
+    }
+
+    .scroll-down-bounce {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes bouncy-scroll {
+      0%, 100% {
+        transform: translate(-50%, -50%);
+      }
+      50% {
+        transform: translate(-50%, calc(-50% + 14px));
+      }
+    }
+
+    .side-join {
+      position: fixed;
+      right: 0;
+      top: 56%;
+      z-index: 900;
+      width: 48px;
+      height: 118px;
+      border: 0;
+      background: var(--pink);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      cursor: pointer;
+      box-shadow: 0 18px 45px rgba(255,47,100,.28);
+    }
+
+    .section {
+      padding: 92px 0;
+      position: relative;
+    }
+
+    .section.alt {
+      border-block: 1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(184,255,61,.035), transparent 28%),
+        #101010;
+    }
+
+    .section-kicker {
+      margin: 0 0 22px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 900;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 880px;
+      margin: 0 auto 52px;
+      color: rgba(255,255,255,.44);
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.18;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .section-title strong {
+      color: var(--text);
+      text-shadow: 0 0 28px rgba(184,255,61,.12);
+    }
+
+    .split-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+
+    .split-head h2,
+    .plans-head h2 {
+      max-width: 650px;
+      margin: 0;
+      font-size: clamp(36px, 5vw, 52px);
+      line-height: .98;
+      text-transform: uppercase;
+    }
+
+    .split-head p {
+      max-width: 430px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 650;
+    }
+
+    .services,
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .service-card,
+    .trainer-card,
+    .plan-card,
+    .contact-form,
+    .contact-info {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.058), rgba(255,255,255,.012)),
+        var(--surface);
+      box-shadow: 0 24px 78px rgba(0,0,0,.28);
+    }
+
+    .service-card,
+    .trainer-card,
+    .plan-card {
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+    }
+
+    .service-card::before,
+    .trainer-card::before,
+    .plan-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 2;
+      height: 3px;
+      background: linear-gradient(90deg, var(--lime), var(--cyan), var(--pink));
+      opacity: .82;
+      pointer-events: none;
+    }
+
+    .service-card:hover,
+    .trainer-card:hover,
+    .plan-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(184,255,61,.48);
+      box-shadow: 0 32px 90px rgba(0,0,0,.42);
+    }
+
+    .service-card {
+      min-height: 440px;
+      display: grid;
+      grid-template-rows: 200px 1fr;
+    }
+
+    .service-media,
+    .trainer-photo,
+    .contact-image {
+      position: relative;
+      overflow: hidden;
+      background: #202020;
+    }
+
+    .service-media img,
+    .trainer-photo img,
+    .contact-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .service-media::after,
+    .trainer-photo::after,
+    .contact-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.58));
+      pointer-events: none;
+    }
+
+    .service-body {
+      display: grid;
+      align-content: space-between;
+      gap: 22px;
+      padding: 24px;
+    }
+
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--text), var(--lime-soft));
+      color: #050505;
+      box-shadow: 0 14px 34px rgba(184,255,61,.14);
+    }
+
+    .service-icon i {
+      width: 27px;
+      height: 27px;
+    }
+
+    .service-card h3,
+    .trainer-card h3,
+    .plan-card h3 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .service-card p,
+    .trainer-card p,
+    .plan-card p {
+      margin: 12px 0 0;
+      color: var(--soft);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .trainers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .trainer-card {
+      min-height: 450px;
+      display: grid;
+      grid-template-rows: 250px 1fr;
+    }
+
+    .trainer-body {
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+      padding: 22px;
+    }
+
+    .trainer-role {
+      display: block;
+      margin-top: 7px;
+      color: var(--lime);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      min-height: 30px;
+      padding: 6px 9px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.035);
+      color: var(--soft);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .plans-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 22px;
+      margin-bottom: 34px;
+    }
+
+    .billing-toggle {
+      display: flex;
+      min-height: 52px;
+      padding: 4px;
+      border: 1px solid rgba(255,255,255,.28);
+      background: linear-gradient(180deg, #171717, #0f0f0f);
+      box-shadow: 0 18px 45px rgba(0,0,0,.24);
+    }
+
+    .billing-toggle button {
+      min-width: 108px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .billing-toggle button.is-active {
+      background: linear-gradient(135deg, var(--lime), var(--lime-soft));
+      color: #050505;
+    }
+
+    .plan-card {
+      min-height: 460px;
+      display: grid;
+      align-content: space-between;
+      gap: 24px;
+      padding: 28px;
+    }
+
+    .plan-card.featured {
+      border-color: var(--lime);
+      box-shadow: 0 28px 86px rgba(184,255,61,.18);
+    }
+
+    .plan-card.featured::after {
+      content: "Popular";
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 3;
+      padding: 7px 10px;
+      background: linear-gradient(135deg, var(--lime), var(--lime-soft));
+      color: #050505;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .price {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 20px 0 0;
+    }
+
+    .price strong {
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .price span {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .save-note {
+      min-height: 22px;
+      margin: 8px 0 0;
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 13px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .feature-list i {
+      width: 18px;
+      height: 18px;
+      color: var(--lime);
+      flex: 0 0 auto;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .contact-form,
+    .contact-info {
+      padding: 28px;
+    }
+
+    .contact-form h2,
+    .contact-info h2 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .contact-form p,
+    .contact-info p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 50px;
+      padding: 13px 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 0;
+      background: linear-gradient(180deg, #111, #0b0b0b);
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+    }
+
+    textarea {
+      min-height: 126px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--lime);
+      box-shadow: 0 0 0 3px rgba(184,255,61,.14);
+    }
+
+    select option {
+      color: var(--text);
+      background: #111;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .contact-info {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 22px;
+      overflow: hidden;
+    }
+
+    .contact-lines {
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--soft);
+      font-weight: 750;
+    }
+
+    .contact-line i {
+      color: var(--lime);
+    }
+
+    .contact-image {
+      min-height: 230px;
+      margin-inline: -28px;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(184,255,61,.14);
+      background: linear-gradient(180deg, #0b0b0b, #050505);
+      padding: 28px 0;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .footer-actions button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1600;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(184,255,61,.08), transparent 42%, rgba(80,232,255,.06)),
+        rgba(0,0,0,.82);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .modal {
+      width: min(720px, 100%);
+      max-height: min(760px, calc(100vh - 44px));
+      overflow: auto;
+      border: 1px solid rgba(255,255,255,.26);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.018)),
+        #101010;
+      box-shadow: var(--shadow);
+    }
+
+    .modal-head,
+    .modal-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 20px;
+      border-bottom: 1px solid rgba(184, 255, 61, .14);
+    }
+
+    .modal-foot {
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(184, 255, 61, .14);
+      border-bottom: 0;
+    }
+
+    .modal h2 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .modal-body {
+      padding: 22px 20px;
+    }
+
+    .modal-body p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .video-frame {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(10,10,10,.12), rgba(10,10,10,.78)),
+        linear-gradient(135deg, rgba(184,255,61,.2), transparent 42%),
+        url("images/service-functional.webp") center / cover no-repeat;
+      text-align: center;
+    }
+
+    .video-frame .play-ring {
+      margin: 0 auto 16px;
+      border-color: var(--lime);
+      color: var(--lime);
+    }
+
+    .video-frame strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 1700;
+      max-width: min(500px, calc(100% - 32px));
+      padding: 14px 18px;
+      background: linear-gradient(135deg, var(--lime), var(--lime-soft));
+      color: #050505;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: var(--shadow);
+      transform: translate(-50%, 30px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .24s var(--ease), transform .24s var(--ease);
+    }
+
+    .toast.is-visible {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 900;
+      display: none;
+      background: linear-gradient(135deg, var(--text), var(--lime-soft));
+      color: #050505;
+    }
+
+    .back-top.is-visible {
+      display: grid;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .nav {
+        grid-template-columns: 1fr auto auto;
+      }
+
+      .nav-links {
+        position: fixed;
+        inset: 82px 0 auto;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 18px 24px 24px;
+        border-bottom: 1px solid rgba(255,255,255,.1);
+        background: rgba(8,8,8,.98);
+      }
+
+      body.menu-open .nav-links {
+        display: flex;
+      }
+
+      .nav-links a {
+        min-height: 54px;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+      }
+
+      .menu-btn {
+        display: inline-grid;
+      }
+
+      .hero-bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        max-width: 540px;
+      }
+
+      .services,
+      .plans {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .trainers {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container,
+      .nav {
+        width: min(100% - 32px, var(--max));
+      }
+
+      .nav {
+        gap: 10px;
+      }
+
+      .brand-logo {
+        width: 50px;
+        height: 50px;
+        padding: 4px;
+      }
+
+      .brand-text {
+        font-size: 20px;
+      }
+
+      .nav-actions .btn {
+        display: none;
+      }
+
+      .hero,
+      .hero-inner {
+        min-height: 720px;
+      }
+
+      .hero {
+        background-position: 58% center;
+      }
+
+      .hero-top {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .hero-note {
+        justify-self: start;
+        text-align: left;
+        font-size: 14px;
+      }
+
+      .hero-title {
+        font-size: clamp(46px, 14vw, 66px);
+      }
+
+      .watch-copy {
+        font-size: 16px;
+      }
+
+      .metrics,
+      .services,
+      .trainers,
+      .plans,
+      .plans-head,
+      .form-grid,
+      .modal-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .split-head,
+      .footer-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .billing-toggle {
+        width: 100%;
+      }
+
+      .billing-toggle button {
+        flex: 1;
+      }
+
+      .section {
+        padding: 66px 0;
+      }
+
+      .side-join {
+        display: none;
+      }
+      
+      .scroll-down-container {
+        top: 50%;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .brand-text {
+        font-size: 18px;
+      }
+
+      .hero-actions,
+      .form-actions,
+      .modal-foot {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .icon-btn {
+        flex: 0 0 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress-line" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="nav">
+      <a class="brand" href="#home" aria-label="Power Gym home">
+        <img class="brand-logo" src="images/logo.webp" alt="Power Gym logo">
+        <span class="brand-text">Power<span>Gym</span></span>
+      </a>
+
+      <nav class="nav-links" id="siteNav" aria-label="Primary navigation">
+        <a href="#home">Home <i data-lucide="chevrons-right" aria-hidden="true"></i></a>
+        <a href="#services">Services <i data-lucide="chevrons-right" aria-hidden="true"></i></a>
+        <a href="#trainers">Trainers <i data-lucide="chevrons-right" aria-hidden="true"></i></a>
+        <a href="#plans">Plans <i data-lucide="chevrons-right" aria-hidden="true"></i></a>
+        <a href="#contact">Contact <i data-lucide="chevrons-right" aria-hidden="true"></i></a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-ghost" type="button" data-scroll="#contact">Get in touch</button>
+        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-controls="siteNav" aria-expanded="false" aria-label="Open menu">
+          <i data-lucide="menu" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero" aria-label="Power Gym introduction">
+      <div class="container hero-inner">
+        <div class="hero-top reveal">
+          <button class="watch-btn" type="button" data-modal="video">
+            <span class="play-ring" aria-hidden="true"><i data-lucide="play"></i></span>
+            <span class="watch-copy">Train with the Best.<br>Watch Online Training</span>
+          </button>
+
+          <p class="hero-note">
+            Our space combines professional equipment, expert coaches, and a motivating atmosphere to help you train smarter, move better, and grow stronger every day.
+          </p>
+        </div>
+
+        <div class="hero-bottom">
+          <div class="reveal">
+            <p class="eyebrow">New member launch offers</p>
+            <h1 class="hero-title">
+              <span>Power.</span>
+              <span class="outline">Strength.</span>
+            </h1>
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="button" data-modal="trial">
+                <i data-lucide="calendar-check" aria-hidden="true"></i>
+                Start free trial
+              </button>
+              <button class="btn btn-ghost" type="button" data-scroll="#plans">
+                View plans
+                <i data-lucide="arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <aside class="hero-card reveal" aria-label="Gym highlights">
+            <h2>Built for focused training, real coaching, and measurable progress.</h2>
+            <div class="metrics">
+              <div class="metric">
+                <i data-lucide="timer" aria-hidden="true"></i>
+                <div><strong>6-11</strong><span>Daily hours</span></div>
+              </div>
+              <div class="metric">
+                <i data-lucide="users" aria-hidden="true"></i>
+                <div><strong>18+</strong><span>Coaches</span></div>
+              </div>
+              <div class="metric">
+                <i data-lucide="zap" aria-hidden="true"></i>
+                <div><strong>42</strong><span>Weekly classes</span></div>
+              </div>
+              <div class="metric">
+                <i data-lucide="shield-check" aria-hidden="true"></i>
+                <div><strong>Pro</strong><span>Equipment</span></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <div class="scroll-down-container" data-scroll="#services" aria-label="Scroll down to services">
+        <span>Scroll Down</span>
+        <div class="scroll-down-bounce">
+          <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </div>
+      </div>
+    </section>
+
+    <button class="side-join" type="button" data-modal="trial">Join now</button>
+
+    <section class="section alt" id="services">
+      <div class="container">
+        <p class="section-kicker reveal">( More than a gym )</p>
+        <h2 class="section-title reveal">
+          Our space combines <strong>professional equipment</strong>, expert coaches, and a motivating atmosphere to help you <strong>train smarter</strong>, move better, and grow stronger <strong>every day</strong>.
+        </h2>
+
+        <div class="services">
+          <article class="service-card reveal">
+            <div class="service-media">
+              <img src="images/service-strength.webp" alt="Strength training equipment" loading="lazy">
+            </div>
+            <div class="service-body">
+              <div>
+                <div class="service-icon"><i data-lucide="dumbbell" aria-hidden="true"></i></div>
+                <h3>Strength Training</h3>
+                <p>Free weights, racks, machines, and guided programs for muscle, power, and clean technique.</p>
+              </div>
+              <button class="btn btn-dark" type="button" data-service="Strength Training">Start strength <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-media">
+              <img src="images/service-cardio.webp" alt="Cardio training zone" loading="lazy">
+            </div>
+            <div class="service-body">
+              <div>
+                <div class="service-icon"><i data-lucide="activity" aria-hidden="true"></i></div>
+                <h3>Cardio & Endurance</h3>
+                <p>Treadmills, bikes, rowers, HIIT lanes, and conditioning sessions that build lasting stamina.</p>
+              </div>
+              <button class="btn btn-dark" type="button" data-service="Cardio & Endurance">Build stamina <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-media">
+              <img src="images/service-fuctional.webp" alt="Functional Training " loading="lazy">
+            </div>
+            <div class="service-body">
+              <div>
+                <div class="service-icon"><i data-lucide="move-3d" aria-hidden="true"></i></div>
+                <h3>Functional Training</h3>
+                <p>Sleds, kettlebells, battle ropes, and mobility stations for strength that moves with you.</p>
+              </div>
+              <button class="btn btn-dark" type="button" data-service="Functional Training">Move better <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trainers">
+      <div class="container">
+        <div class="split-head reveal">
+          <h2>Meet the trainers behind the progress.</h2>
+          <p>Certified coaches with specialist tracks for strength, mobility, endurance, weight loss, and personal transformation.</p>
+        </div>
+
+        <div class="trainers">
+          <article class="trainer-card reveal">
+            <div class="trainer-photo">
+              <img src="images/trainer1.webp" alt="Trainer Arjun Das" loading="lazy">
+            </div>
+            <div class="trainer-body">
+              <div>
+                <h3>Arjun Das</h3>
+                <span class="trainer-role">Head Strength Coach</span>
+                <p>Powerlifting, hypertrophy blocks, form checks, and nutrition foundations.</p>
+              </div>
+              <div class="chips"><span class="chip">Powerlifting</span><span class="chip">Nutrition</span></div>
+              <button class="btn btn-ghost" type="button" data-trainer="Arjun Das">Book coach</button>
+            </div>
+          </article>
+
+          <article class="trainer-card reveal">
+            <div class="trainer-photo">
+              <img src="images/trainer3.webp" alt="Trainer Priya Sen" loading="lazy">
+            </div>
+            <div class="trainer-body">
+              <div>
+                <h3>Priya Sen</h3>
+                <span class="trainer-role">Functional & Mobility</span>
+                <p>Movement quality, recovery, mobility circuits, and injury-conscious training.</p>
+              </div>
+              <div class="chips"><span class="chip">Mobility</span><span class="chip">Rehab</span></div>
+              <button class="btn btn-ghost" type="button" data-trainer="Priya Sen">Book coach</button>
+            </div>
+          </article>
+
+          <article class="trainer-card reveal">
+            <div class="trainer-photo">
+              <img src="images/trainer2.webp" alt="Trainer Rohit Mehra" loading="lazy">
+            </div>
+            <div class="trainer-body">
+              <div>
+                <h3>Rohit Mehra</h3>
+                <span class="trainer-role">Cardio Specialist</span>
+                <p>HIIT, running economy, athletic conditioning, and endurance programming.</p>
+              </div>
+              <div class="chips"><span class="chip">HIIT</span><span class="chip">Endurance</span></div>
+              <button class="btn btn-ghost" type="button" data-trainer="Rohit Mehra">Book coach</button>
+            </div>
+          </article>
+
+          <article class="trainer-card reveal">
+            <div class="trainer-photo">
+              <img src="images/trainer4.webp" alt="Trainer Simran Kaur" loading="lazy">
+            </div>
+            <div class="trainer-body">
+              <div>
+                <h3>Simran Kaur</h3>
+                <span class="trainer-role">Personal Training</span>
+                <p>Weight loss, habit coaching, strength basics, and accountability plans.</p>
+              </div>
+              <div class="chips"><span class="chip">Weight Loss</span><span class="chip">Strength</span></div>
+              <button class="btn btn-ghost" type="button" data-trainer="Simran Kaur">Book coach</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="plans">
+      <div class="container">
+        <div class="plans-head reveal">
+          <div>
+            <p class="eyebrow">Membership plans</p>
+            <h2>Flexible access. Serious results.</h2>
+          </div>
+          <div class="billing-toggle" role="group" aria-label="Billing cycle">
+            <button class="is-active" type="button" data-billing="monthly">Monthly</button>
+            <button type="button" data-billing="annual">Annual</button>
+          </div>
+        </div>
+
+        <div class="plans">
+          <article class="plan-card reveal">
+            <div>
+              <h3>Starter</h3>
+              <p>For consistent gym-floor training.</p>
+              <div class="price"><strong class="plan-price" data-monthly="999" data-annual="9990">INR 999</strong><span class="price-cycle">/ month</span></div>
+              <p class="save-note"></p>
+            </div>
+            <ul class="feature-list">
+              <li><i data-lucide="check" aria-hidden="true"></i>Gym floor access</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>5 group classes monthly</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Locker access</li>
+            </ul>
+            <button class="btn btn-ghost" type="button" data-plan="Starter">Choose starter</button>
+          </article>
+
+          <article class="plan-card featured reveal">
+            <div>
+              <h3>Pro</h3>
+              <p>For members who want coaching rhythm.</p>
+              <div class="price"><strong class="plan-price" data-monthly="1799" data-annual="17990">INR 1,799</strong><span class="price-cycle">/ month</span></div>
+              <p class="save-note"></p>
+            </div>
+            <ul class="feature-list">
+              <li><i data-lucide="check" aria-hidden="true"></i>All Starter benefits</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Unlimited classes</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>1 PT session monthly</li>
+            </ul>
+            <button class="btn btn-primary" type="button" data-plan="Pro">Choose pro</button>
+          </article>
+
+          <article class="plan-card reveal">
+            <div>
+              <h3>Elite</h3>
+              <p>For full-service training and recovery.</p>
+              <div class="price"><strong class="plan-price" data-monthly="3499" data-annual="34990">INR 3,499</strong><span class="price-cycle">/ month</span></div>
+              <p class="save-note"></p>
+            </div>
+            <ul class="feature-list">
+              <li><i data-lucide="check" aria-hidden="true"></i>All Pro benefits</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>4 PT sessions monthly</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Recovery lounge access</li>
+            </ul>
+            <button class="btn btn-ghost" type="button" data-plan="Elite">Choose elite</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          <section class="contact-form reveal" aria-label="Contact form">
+            <h2>Contact Power Gym</h2>
+            <p>Send your goals and the team will reach out to schedule your free trial or answer membership questions.</p>
+
+            <form id="contactForm">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="name">Full name</label>
+                  <input id="name" name="name" autocomplete="name" required placeholder="Your name">
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+                </div>
+                <div class="field">
+                  <label for="phone">Phone</label>
+                  <input id="phone" name="phone" autocomplete="tel" placeholder="+91 00000-00000">
+                </div>
+                <div class="field">
+                  <label for="interest">I'm interested in</label>
+                  <select id="interest" name="interest">
+                    <option>Free trial</option>
+                    <option>Personal training</option>
+                    <option>Group classes</option>
+                    <option>Membership plans</option>
+                  </select>
+                </div>
+                <div class="field full">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" placeholder="Tell us your goals"></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit"><i data-lucide="send" aria-hidden="true"></i>Send message</button>
+                <button class="btn btn-ghost" type="button" data-modal="trial"><i data-lucide="user-plus" aria-hidden="true"></i>Book free trial</button>
+              </div>
+            </form>
+          </section>
+
+          <aside class="contact-info reveal" aria-label="Visit information">
+            <div>
+              <h2>Visit us</h2>
+              <p>Downtown Studio. Open daily from 6:00 AM to 11:00 PM.</p>
+              <div class="contact-lines">
+                <div class="contact-line"><i data-lucide="map-pin" aria-hidden="true"></i>Power Gym, Downtown Studio</div>
+                <div class="contact-line"><i data-lucide="phone" aria-hidden="true"></i>+91 00000-00000</div>
+                <div class="contact-line"><i data-lucide="mail" aria-hidden="true"></i>hello@powergym.fit</div>
+              </div>
+            </div>
+
+            <div class="contact-image">
+              <img src="images/product.webp" alt="Power Gym recovery product and lounge" loading="lazy">
+            </div>
+
+            <button class="btn btn-dark" type="button" id="directionsBtn"><i data-lucide="navigation" aria-hidden="true"></i>Get directions</button>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-row">
+      <div>&copy; <strong>Power Gym</strong> - Built for performance.</div>
+      <div class="footer-actions">
+        <button type="button" data-scroll="#services">Services</button>
+        <button type="button" data-scroll="#plans">Plans</button>
+        <button type="button" data-scroll="#contact">Contact</button>
+      </div>
+    </div>
+  </footer>
+
+  <button class="icon-btn back-top" id="backTop" type="button" aria-label="Back to top">
+    <i data-lucide="arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal" role="document">
+      <div class="modal-head">
+        <h2 id="modalTitle">Power Gym</h2>
+        <button class="icon-btn" id="modalClose" type="button" aria-label="Close modal">
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" id="modalCancel" type="button">Cancel</button>
+        <button class="btn btn-primary" id="modalConfirm" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script>
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+    const state = {
+      billing: "monthly",
+      modalType: null,
+      modalDetails: {},
+      lastFocus: null,
+      toastTimer: null
+    };
+
+    // ==========================================
+    // PREMIUM SMOOTH SCROLL INIT (Lenis)
+    // ==========================================
+    const lenis = new Lenis({
+      lerp: 0.05,             // Very slow and buttery smoothing
+      wheelMultiplier: 0.7,   // Slow down the actual distance covered per wheel tick
+      smoothTouch: true,      // Brings the premium feel to touch devices
+      touchMultiplier: 1.5,
+    });
+
+    // Custom slightly bouncy easing for anchor jumps
+    const customBounceEase = (t) => {
+      const c1 = 1.2;
+      const c3 = c1 + 1;
+      return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    };
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Synchronize UI updates with high-framerate Lenis scroll ticks
+    const backTop = $("#backTop");
+    lenis.on('scroll', (e) => {
+      // Use normalize progress directly from Lenis for perfect 120fps sync
+      document.documentElement.style.setProperty("--scroll-progress", e.progress.toFixed(4));
+      backTop.classList.toggle("is-visible", e.animatedScroll > 720);
+    });
+    // ==========================================
+
+    const menuBtn = $("#menuBtn");
+    const modalBackdrop = $("#modalBackdrop");
+    const modalTitle = $("#modalTitle");
+    const modalBody = $("#modalBody");
+    const modalConfirm = $("#modalConfirm");
+    const modalCancel = $("#modalCancel");
+
+    function createIcons() {
+      if (window.lucide) {
+        window.lucide.createIcons({ attrs: { "stroke-width": 2.2 } });
+      }
+    }
+
+    window.addEventListener("load", createIcons);
+
+    function closeMenu() {
+      document.body.classList.remove("menu-open");
+      menuBtn.setAttribute("aria-expanded", "false");
+      menuBtn.setAttribute("aria-label", "Open menu");
+      const icon = menuBtn.querySelector("i");
+      if (icon) icon.setAttribute("data-lucide", "menu");
+      createIcons();
+      lenis.start(); // Resume scroll
+    }
+
+    function toggleMenu() {
+      const isOpen = document.body.classList.toggle("menu-open");
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+      menuBtn.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      const icon = menuBtn.querySelector("i");
+      if (icon) icon.setAttribute("data-lucide", isOpen ? "x" : "menu");
+      createIcons();
+      
+      // Stop/start premium scroll based on menu open state
+      if (isOpen) lenis.stop();
+      else lenis.start();
+    }
+
+    menuBtn.addEventListener("click", toggleMenu);
+
+    function scrollToTarget(selector) {
+      const target = $(selector);
+      if (!target) return;
+      closeMenu();
+
+      const headerHeight = $(".site-header") ? $(".site-header").offsetHeight : 82;
+      
+      // Using Lenis highly optimized scroll API with bouncy easing
+      lenis.scrollTo(target, { 
+        offset: -headerHeight, 
+        duration: 1.8, 
+        easing: customBounceEase 
+      });
+    }
+
+    $$("a[href^='#']").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const hash = link.getAttribute("href");
+        if (hash && hash.length > 1) {
+          event.preventDefault();
+          scrollToTarget(hash);
+          history.replaceState(null, "", hash);
+        }
+      });
+    });
+
+    $$("[data-scroll]").forEach((button) => {
+      button.addEventListener("click", () => scrollToTarget(button.dataset.scroll));
+    });
+
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      clearTimeout(state.toastTimer);
+      state.toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3600);
+    }
+
+    function formatInr(amount) {
+      return "INR " + Number(amount).toLocaleString("en-IN");
+    }
+
+    function updatePrices() {
+      $$(".billing-toggle button").forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.billing === state.billing);
+      });
+
+      $$(".plan-card").forEach((card) => {
+        const price = $(".plan-price", card);
+        const cycle = $(".price-cycle", card);
+        const note = $(".save-note", card);
+        if (state.billing === "annual") {
+          price.textContent = formatInr(price.dataset.annual);
+          cycle.textContent = "/ year";
+          note.textContent = "Two months included";
+        } else {
+          price.textContent = formatInr(price.dataset.monthly);
+          cycle.textContent = "/ month";
+          note.textContent = "";
+        }
+      });
+    }
+
+    $$(".billing-toggle button").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.billing = button.dataset.billing;
+        updatePrices();
+        showToast(state.billing === "annual" ? "Annual billing selected." : "Monthly billing selected.");
+      });
+    });
+
+    function trialFormMarkup(details = {}) {
+      const selectedInterest = details.interest || "Free trial";
+      const trainerLine = details.trainer ? `<p>Your preferred coach: <strong>${details.trainer}</strong></p>` : "";
+      return `
+        <p>Book a free trial and our team will confirm your slot.</p>
+        ${trainerLine}
+        <div class="modal-grid">
+          <div class="field">
+            <label for="modalName">Full name</label>
+            <input id="modalName" required placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="modalEmail">Email</label>
+            <input id="modalEmail" type="email" required placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="modalPhone">Phone</label>
+            <input id="modalPhone" placeholder="+91 00000-00000" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="modalGoal">Focus area</label>
+            <select id="modalGoal">
+              <option${selectedInterest === "Free trial" ? " selected" : ""}>Free trial</option>
+              <option${selectedInterest === "Strength Training" ? " selected" : ""}>Strength Training</option>
+              <option${selectedInterest === "Cardio & Endurance" ? " selected" : ""}>Cardio & Endurance</option>
+              <option${selectedInterest === "Functional Training" ? " selected" : ""}>Functional Training</option>
+              <option${selectedInterest === "Personal training" ? " selected" : ""}>Personal training</option>
+              <option>Membership plans</option>
+            </select>
+          </div>
+        </div>
+      `;
+    }
+
+    function planFormMarkup(details = {}) {
+      const plan = details.plan || "Pro";
+      const billing = state.billing === "annual" ? "Annual" : "Monthly";
+      return `
+        <p>You selected the <strong>${plan}</strong> plan with <strong>${billing}</strong> billing. Complete this quick request and we will send the joining details.</p>
+        <div class="modal-grid">
+          <div class="field">
+            <label for="modalName">Full name</label>
+            <input id="modalName" required placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="modalEmail">Email</label>
+            <input id="modalEmail" type="email" required placeholder="you@example.com" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="modalPhone">Phone</label>
+            <input id="modalPhone" placeholder="+91 00000-00000" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="modalSlot">Preferred start</label>
+            <select id="modalSlot">
+              <option>This week</option>
+              <option>Next week</option>
+              <option>This month</option>
+            </select>
+          </div>
+        </div>
+      `;
+    }
+
+    function videoMarkup() {
+      return `
+        <div class="video-frame">
+          <div>
+            <span class="play-ring" aria-hidden="true"><i data-lucide="play"></i></span>
+            <strong>Online Training Preview</strong>
+            <p style="margin-top:12px">A focused preview of coaching style, class energy, and movement standards at Power Gym.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function openModal(type, details = {}) {
+      state.modalType = type;
+      state.modalDetails = details;
+      state.lastFocus = document.activeElement;
+      
+      document.body.classList.add("modal-open");
+      modalBackdrop.classList.add("is-open");
+      modalBackdrop.setAttribute("aria-hidden", "false");
+      
+      // Stop background scrolling
+      lenis.stop();
+
+      if (type === "video") {
+        modalTitle.textContent = "Watch Training";
+        modalBody.innerHTML = videoMarkup();
+        modalConfirm.textContent = "Book a trial";
+        modalCancel.textContent = "Close";
+      } else if (type === "plan") {
+        modalTitle.textContent = "Choose " + (details.plan || "Plan");
+        modalBody.innerHTML = planFormMarkup(details);
+        modalConfirm.textContent = "Request plan";
+        modalCancel.textContent = "Cancel";
+      } else {
+        modalTitle.textContent = details.trainer ? "Book " + details.trainer : "Book Free Trial";
+        modalBody.innerHTML = trialFormMarkup(details);
+        modalConfirm.textContent = "Book trial";
+        modalCancel.textContent = "Cancel";
+      }
+
+      createIcons();
+      setTimeout(() => {
+        const focusTarget = $("#modalName") || $("#modalClose");
+        if(focusTarget) focusTarget.focus();
+      }, 40);
+    }
+
+    function closeModal() {
+      modalBackdrop.classList.remove("is-open");
+      modalBackdrop.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      
+      state.modalType = null;
+      state.modalDetails = {};
+      
+      if (state.lastFocus && typeof state.lastFocus.focus === "function") {
+        state.lastFocus.focus();
+      }
+      
+      // Resume background scrolling
+      lenis.start();
+    }
+
+    function validateModalFields() {
+      const name = $("#modalName");
+      const email = $("#modalEmail");
+      if (!name || !email) return true;
+      if (!name.value.trim()) {
+        name.focus();
+        showToast("Please enter your name.");
+        return false;
+      }
+      if (!email.checkValidity()) {
+        email.focus();
+        showToast("Please enter a valid email.");
+        return false;
+      }
+      return true;
+    }
+
+    function completeModal() {
+      if (state.modalType === "video") {
+        openModal("trial");
+        return;
+      }
+
+      if (!validateModalFields()) return;
+
+      const name = $("#modalName").value.trim();
+      const email = $("#modalEmail").value.trim();
+
+      if (state.modalType === "plan") {
+        showToast(`Thanks ${name}. Your ${state.modalDetails.plan || "selected"} plan request was sent to ${email}.`);
+      } else {
+        const goal = $("#modalGoal") ? $("#modalGoal").value : "free trial";
+        showToast(`Thanks ${name}. Your ${goal} request was sent to ${email}.`);
+      }
+
+      closeModal();
+    }
+
+    $$("[data-modal]").forEach((button) => {
+      button.addEventListener("click", () => openModal(button.dataset.modal));
+    });
+
+    $$("[data-service]").forEach((button) => {
+      button.addEventListener("click", () => openModal("trial", { interest: button.dataset.service }));
+    });
+
+    $$("[data-trainer]").forEach((button) => {
+      button.addEventListener("click", () => openModal("trial", { trainer: button.dataset.trainer, interest: "Personal training" }));
+    });
+
+    $$("[data-plan]").forEach((button) => {
+      button.addEventListener("click", () => openModal("plan", { plan: button.dataset.plan }));
+    });
+
+    $("#modalClose").addEventListener("click", closeModal);
+    if(modalCancel) modalCancel.addEventListener("click", closeModal);
+    if(modalConfirm) modalConfirm.addEventListener("click", completeModal);
+
+    modalBackdrop.addEventListener("click", (event) => {
+      if (event.target === modalBackdrop) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (modalBackdrop.classList.contains("is-open")) {
+          closeModal();
+        } else if (document.body.classList.contains("menu-open")) {
+          closeMenu();
+        }
+      }
+    });
+
+    $("#contactForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const name = $("#name").value.trim();
+      const email = $("#email").value.trim();
+      const interest = $("#interest").value;
+      showToast(`Thanks ${name}. We received your ${interest} request and will reply to ${email}.`);
+      form.reset();
+    });
+
+    $("#directionsBtn").addEventListener("click", () => {
+      window.open("https://www.google.com/maps/search/?api=1&query=Power+Gym+Downtown+Studio", "_blank", "noopener");
+      showToast("Opening directions in a new tab.");
+    });
+
+    backTop.addEventListener("click", () => scrollToTarget("#home"));
+
+    const revealObserver = "IntersectionObserver" in window
+      ? new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.14 })
+      : null;
+
+    $$(".reveal").forEach((element) => {
+      if (revealObserver) {
+        revealObserver.observe(element);
+      } else {
+        element.classList.add("is-visible");
+      }
+    });
+
+    $$("img").forEach((image) => {
+      image.addEventListener("error", () => {
+        image.style.display = "none";
+      }, { once: true });
+    });
+
+    updatePrices();
+  </script>
+</body>
+</html>
